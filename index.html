@@ -264,6 +264,9 @@ footer.site{padding-block:44px;color:var(--muted);font-size:.86rem;display:flex;
 .give-steps{margin:4px 0 0;padding-left:1.2em;display:grid;gap:6px;font-size:.92rem;line-height:1.55;color:var(--ink)}
 .give-note{margin:0;font-size:.8rem;color:var(--muted)}
 .author-support{margin-top:22px;display:inline-flex}
+.give-bank{display:grid;grid-template-columns:auto 1fr;gap:6px 16px;margin:0;padding:14px 16px;border-radius:12px;background:var(--bg);border:1px dashed var(--tide-2);font-family:var(--ui)}
+.give-bank dt{font-size:.85rem;color:var(--muted)}
+.give-bank dd{margin:0;font-weight:600;color:var(--ink);font-size:1.02rem;user-select:all}
 .give-sub{margin:-6px 0 0;font-size:.95rem;line-height:1.5;color:var(--ink)}
 .give-stripe{justify-self:stretch;text-align:center;justify-content:center;font-size:1.02rem;padding-block:14px}
 .give-or{display:flex;align-items:center;gap:12px;margin:10px 0 2px;font-family:var(--ui);font-size:.74rem;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
@@ -428,6 +431,10 @@ footer.site{padding-block:44px;color:var(--muted);font-size:.86rem;display:flex;
           <li>Send to the email address above.</li>
           <li>Add a note if you like. Chuks would love to hear how the book met you.</li>
         </ol>
+        <div class="give-or"><span>Or, from a Nigerian bank</span></div>
+        <div class="give-head">Bank transfer</div>
+        <dl class="give-bank"><dt>Bank</dt><dd>Lemmy MFB</dd><dt>Account number</dt><dd id="give-acct">6230648037</dd></dl>
+        <button class="btn btn-ghost give-copy" id="copy-acct" type="button">Copy account number</button>
       </div>
     </div>
   </section>
@@ -2835,6 +2842,10 @@ footer.site{padding-block:44px;color:var(--muted);font-size:.86rem;display:flex;
   });
 
   /* ---------- copy giving email ---------- */
+  document.getElementById('copy-acct')?.addEventListener('click',async()=>{
+    try{await navigator.clipboard.writeText('6230648037');say('Account number copied')}
+    catch(err){const r=document.createRange();r.selectNodeContents(document.getElementById('give-acct'));const sel=getSelection();sel.removeAllRanges();sel.addRange(r);say('Selected. Press copy to keep it.')}
+  });
   document.getElementById('copy-email')?.addEventListener('click',async()=>{
     const t='bonaokonkwo122@gmail.com';
     try{await navigator.clipboard.writeText(t);say('Email copied')}
